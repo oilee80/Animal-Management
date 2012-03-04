@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="animals" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM">
+	<object class="animal" table="animals" extends="xPDOSimpleObject">
+		<field key="name" dbtype="varchar" precision="255" phptype="string" default="" />
+		<field key="description" dbtype="text" phptype="string" default="" />
+		<field key="gender" dbtype="varchar" precision="1" phptype="string" />
+		<field key="species_id" dbtype="int" phptype="integer" />
+
+		<field key="good_with_cats" dbtype="int" phptype="integer" />
+		<field key="good_with_dogs" dbtype="int" phptype="integer" />
+		<field key="good_with_children" dbtype="int" phptype="integer" />
+		<field key="good_with_travel" dbtype="int" phptype="integer" />
+		<field key="weight" dbtype="int" phptype="integer" />
+		<field key="height" dbtype="int" phptype="integer" />
+
+		<field key="enabled" dbtype="int" precision="1" phptype="boolean" />
+
+		<index alias="index" name="index" primary="false" unique="false" type="index">
+			<column key="name" length="" collation="A" null="false" />
+			<column key="description" length="" collation="A" null="false" />
+			<column key="gender" length="" collation="A" null="false" />
+
+			<column key="good_with_cats" length="" collation="A" null="false" />
+			<column key="good_with_dogs" length="" collation="A" null="false" />
+			<column key="good_with_children" length="" collation="A" null="false" />
+			<column key="good_with_travel" length="" collation="A" null="false" />
+
+			<column key="enabled" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="species" class="species" local="species_id" foreign="id" cardinality="one" owner="foreign" />
+	</object>
+
+	<object class="species" table="species" extends="xPDOSimpleObject">
+		<field key="species" dbtype="varchar" precision="255" phptype="string" default="" />
+
+		<composite alias="animal" class="animal" local="id" foreign="species_id" cardinality="many" owner="local" />
+	</object>
+
+	<object class="category" table="categories" extends="xPDOSimpleObject">
+		<field key="name" dbtype="varchar" precision="255" phptype="string" default="" />
+		<field key="description" dbtype="text" phptype="string" default="" />
+		<field key="parent" dbtype="int" precision="11" phptype="integer" />
+		<field key="enabled" dbtype="int" precision="1" phptype="boolean" />
+
+		<composite alias="cateogry_x_refs" class="cateogry_x_ref" local="id" foreign="cateogry_id" cardinality="many" owner="local" />
+	</object>
+
+	<object class="cateogry_x_ref" table="cateogry_x_refs" extends="xPDOObject">
+		<field key="animal_id" dbtype="integer" precision="11" phptype="integer" default="" />
+		<field key="category_id" dbtype="integer" precision="11" phptype="integer" default="" />
+
+		<aggregate alias="animal" class="animal" local="animal_id" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="cateogry" class="cateogry" local="category_id" foreign="id" cardinality="one" owner="foreign" />
+	</object>
+</model>

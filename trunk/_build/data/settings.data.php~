@@ -1,0 +1,18 @@
+<?php
+/**
+ * Settings data script
+ *
+ * @category  Lead Management
+ * @package   Lead Management
+ * @author    L. Bradley (http://www.thehospitalgroup.org)
+ * @license   GPLv3 http://www.gnu.org/licenses/gpl.html
+ * @link      none
+ **/
+
+/* Context */
+
+/* Category */
+$category = $modx->newObject('modCategory');
+$category->fromArray(array(
+	'category' => 'Animals'
+	));

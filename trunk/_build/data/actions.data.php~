@@ -1,0 +1,38 @@
+<?php
+/**
+ * Actions build script
+ *
+ * @category  Price Management
+ * @package   Price Management
+ * @author    L. Bradley (www.thehospitalgroup.org)
+ * @license   GPLv3 http://www.gnu.org/licenses/gpl.html
+ * @link      none
+ **/
+
+/* Actions */
+$action= $modx->newObject('modAction');
+$action->fromArray(array(
+	'id' => 1,
+	'namespace' => 'prices',
+	'parent' => '0',
+	'controller' => 'index',
+	'haslayout' => '1',
+	'lang_topics' => 'prices:default,file',
+	'assets' => '',
+), '', true, true);
+
+/* load menu into action */
+$menu= $modx->newObject('modMenu');
+$menu->fromArray(array(
+	'text' => 'prices',
+	'parent' => 'components',
+	'text' => 'prices',
+	'description' => 'prices_desc',
+	'icon' => 'images/icons/plugin.gif',
+	'menuindex' => '0',
+	'params' => '',
+	'handler' => '',
+), '', true, true);
+$menu->addOne($action);
+
+return $menu;

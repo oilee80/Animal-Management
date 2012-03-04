@@ -1,0 +1,23 @@
+<?php
+/**
+ * Common processor
+ *
+ * @category  Blog
+ * @author    L.Bradley (http://www.thehospitalgroup.org)
+ * @license   GPLv3 http://www.gnu.org/licenses/gpl.html
+ * @link      none
+ *
+ * @package blog
+ * @subpackage processors
+ */
+require_once dirname(dirname(__FILE__)).'/model/animals/animals.class.php';
+
+/* Load our main class */
+$bl = new Animal($modx);
+
+/* initialize into a faux connector context to let PV know we dont want
+ * to do mgr-specific actions, just processor ones
+ */
+return $bl->initialize('connector');
+
+ 

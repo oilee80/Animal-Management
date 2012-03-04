@@ -1,0 +1,6 @@
+<?php
+header('ALERT: Need to change "'.__FILE__.'" before packing');
+require_once dirname(dirname(__FILE__)).'/index.php';
+header('dir: '.dirname(dirname(dirname(__FILE__))).'/processors/animals');
+//$modx->request->handleRequest(array('location' => 'animals'));
+$modx->request->handleRequest(array('location' => '../../../public_html/modxPackages/animals/trunk/processors/animals'));

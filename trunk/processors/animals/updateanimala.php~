@@ -1,0 +1,46 @@
+<?php
+/**
+ * Gets a list of database tables
+ *
+ * @package modx
+ * @subpackage processors.system.databasetable
+ */
+if (!$modx->hasPermission('database')) return $modx->error->failure($modx->lexicon('permission_denied'));
+
+$corePath = $modx->config['core_path'].'components/prices/';
+$modx->addPackage('prices', $corePath.'model/','modx_prices_');
+
+$modx->lexicon->load('system_info');
+
+	if ($scriptProperties['id']) {
+		$procedure = $modx->getObject('procedure',$scriptProperties['id']);
+	} else {
+		$procedure = $modx->newObject('procedure');
+	}
+	if (is_object($procedure)) {
+		$tStamp = date('Y-m-d H:i:s');	//2011-05-20 10:25:23
+		header('procedure: LOADED');
+
+		foreach($scriptProperties AS $k=>$v) {
+			switch($k) {
+				case 'action':
+				case 'HTTP_MODAUTH':
+				case 'id':
+					continue;
+				break;
+
+				default:
+					$procedure->set($k,$v);
+				break;
+			}
+header('set-'.$k.': v='.json_encode($v));
+		}
+
+		if ($procedure->save()) {
+			header('procedure: SAVED');
+		} else {
+			header('procedure: FAILED-SAVE');
+		}
+	} else {
+		header('procedure: NOT-LOADED');
+	}
