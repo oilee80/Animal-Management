@@ -5,5 +5,5 @@
 //define('MODX_CORE_PATH', '/home/surgicar/core/');
 define('MODX_CORE_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/core/');
 header('MODX_CORE_PATH: '.MODX_CORE_PATH);
-define('MODX_CONFIG_KEY', 'config');
+define('MODX_CONFIG_KEY', 'modx');
 ?>

@@ -1,5 +1,6 @@
 /*	Base Page
 */
+alert('testing');
 MODx.panel.Home = function(config) {
 	config = config || {};
 	Ext.apply(config,{

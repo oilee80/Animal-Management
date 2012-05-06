@@ -22,7 +22,7 @@ $modx->initialize('mgr');
 //$modx->setDebug(false);
 $modx->setDebug(true);
 $modx->setLogLevel(modX::LOG_LEVEL_ERROR);
-
+die();
 echo '<pre>'; $modx->setLogTarget('ECHO');
 error_reporting(E_ALL); ini_set('display_errors', true);
 

@@ -67,7 +67,7 @@ MODx.grid.animalsGrid = function (A) {
 			text: _("animals.create"),
 			scope: this,
 			handler: {
-				xtype: "modx-window-animal-update",
+				xtype: "modx-window-animal-updateA",
 //				xtype: "modx-formpanel-animal-update-wrap",
 				url: A.url || MODx.config.connectors_url + "animals/animals.php",
 				blankValues: true
@@ -156,8 +156,12 @@ Ext.extend(MODx.grid.animalsGrid, MODx.grid.Grid, {
 			A = this.menu.record.menu;
 		} else {
 			A.push({
-				text: _("animals.update"),
-				handler: this.updateAnimal
+				text: _("animals.update_main_details"),
+				handler: this.updateAnimalA
+			});
+			A.push({
+				text: _("animals.update_detended_details"),
+				handler: this.updateAnimalA
 			});
 			A.push({
 				text:_('animals.remove'),
@@ -169,11 +173,11 @@ Ext.extend(MODx.grid.animalsGrid, MODx.grid.Grid, {
 			this.menu.showAt(D.xy);
 		}
 	}
-	,updateAnimal: function (A, C) {
+	,updateAnimalA: function (A, C) {
 		var B = this.menu.record;
 		B.fk = Ext.isDefined(this.config.fk) ? this.config.fk : 0;
 		var D = MODx.load({
-			xtype: "modx-window-animal-update",
+			xtype: "modx-window-animal-updateA",
 //			xtype: "modx-formpanel-animal-update-wrap",
 			record: B,
 			grid: this,
@@ -344,7 +348,7 @@ Ext.reg("modx-window-animal-update", MODx.window.animalUpdate);
 
 
 /*	Window for updating Animal	*/
-
+/*	Unable to find how to tabulate the data so needing to be done in 2 windows	*/
 MODx.window.animalUpdateA = function (A) {
 	A = A || {};
 	var B = A.ident || "modx-uss-" + Ext.id();
@@ -421,6 +425,84 @@ MODx.window.animalUpdateA = function (A) {
 };
 Ext.extend(MODx.window.animalUpdateA, MODx.Window);
 Ext.reg("modx-window-animal-updateA", MODx.window.animalUpdateA);
+
+
+MODx.window.animalUpdateB = function (A) {
+	A = A || {};
+	var B = A.ident || "modx-uss-" + Ext.id();
+	Ext.applyIf(A, {
+		title: _("animals.update"),
+		width: 800,
+		url: A.grid.config.url,
+		action: "updateAnimalB",
+
+/*		shadow: false,
+		resizable: true,
+		collapsible: true,
+		maximizable: true,
+		allowDrop: true,
+		height: 600,
+		forceLayout: true,
+		boxMaxHeight: 700,
+		maxHeight: 700,
+		autoScroll: true,*/
+
+		fields: [{
+			xtype: "hidden",
+			name: "id",
+			id: "modx-cs-fk",
+			value: A.id || 0
+		}, {
+			xtype: "textfield",
+			fieldLabel: _("animals.name"),
+			name: 'pageId',
+			allowBlank: true,
+			anchor: "90%"
+		}, {
+			xtype: "htmleditor",
+			fieldLabel: _("animals.description"),
+			name: "description",
+			anchor: "90%"
+		}, {
+			xtype: "textfield",
+			fieldLabel: _("animals.height"),
+			name: "height",
+//			anchor: "90%"
+		}, {
+			xtype: "textfield",
+			fieldLabel: _("animals.weight"),
+			name: "weight",
+//			anchor: "90%"
+/*		}, {
+			fieldLabel: _("animals.good_with_cats")
+			,hiddenName:"good_with_cats"
+			,name: "good_with_cats"
+			,xtype: 'modx-combo-goodwith'
+		}, {
+			fieldLabel: _("animals.good_with_dogs")
+			,hiddenName:"good_with_dogs"
+			,name: "good_with_dogs"
+			,xtype: 'modx-combo-goodwith'
+		}, {
+			fieldLabel: _("animals.good_with_children")
+			,hiddenName:"good_with_children"
+			,name: "good_with_children"
+			,xtype: 'modx-combo-goodwith'
+		}, {
+			fieldLabel: _("animals.good_with_travel")
+			,hiddenName:"good_with_travel"
+			,name: "good_with_travel"
+			,xtype: 'modx-combo-goodwith'
+		}, {
+			xtype: 'modx-combo-gender'
+		}, {
+			xtype: 'modx-combo-species'
+*/		}]
+	});
+	MODx.window.animalUpdateB.superclass.constructor.call(this, A);
+};
+Ext.extend(MODx.window.animalUpdateB, MODx.Window);
+Ext.reg("modx-window-animal-updateB", MODx.window.animalUpdateB);
 
 
 

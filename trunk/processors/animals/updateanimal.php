@@ -5,7 +5,9 @@
  * @package modx
  * @subpackage processors.system.databasetable
  */
+header('testA: test');
 if (!$modx->hasPermission('database')) return $modx->error->failure($modx->lexicon('permission_denied'));
+header('testB: test');
 
 $corePath = $modx->config['core_path'].'components/animals/';
 $modx->addPackage('animals', $corePath.'model/',$modx->getOption(xPDO::OPT_TABLE_PREFIX).'animals_');
